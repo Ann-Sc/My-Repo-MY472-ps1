@@ -51,6 +51,24 @@ Below we are using the newly created clean_tibble() function on a dataset provid
 ```{r}
 #pasting URL to the TfL raw dataset in my github repo into the clean_tibble() function where the argument "data" was assigned
 
-clean_tibble("https://raw.githubusercontent.com/Ann-Sc/My-Repo-MY472-ps1/refs/heads/main/tfl-journeys-type.csv") 
+cleaned_data <- clean_tibble("https://raw.githubusercontent.com/Ann-Sc/My-Repo-MY472-ps1/refs/heads/main/tfl-journeys-type.csv") 
 
+cleaned_data
+```
+
+## A Second Function
+
+The function below creates a new column that displays the sum of each rows journeys.
+
+```{r}
+#defines and creates a function with one argument being data that defines and creates a new column that sums just rows 7-12 which contain the journey amounts
+
+adding_sum <- function(data) {  
+  added_column <- data %>%  
+    mutate(journey_sum = rowSums(select(.,7:12)))
+  return(added_column)
+}
+
+#using the new function on the cleaned data from the first function
+adding_sum(cleaned_data)
 ```
