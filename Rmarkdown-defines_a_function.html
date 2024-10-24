@@ -413,7 +413,7 @@ Transport Journeys by Type of Transport. You can find the webpage where
 it was originally downloaded from <a href="https://data.london.gov.uk/dataset/public-transport-journeys-type-transport">here</a>.</p>
 <pre class="r"><code>#pasting URL to the TfL raw dataset in my github repo into the clean_tibble() function where the argument &quot;data&quot; was assigned
 
-clean_tibble(&quot;https://raw.githubusercontent.com/Ann-Sc/My-Repo-MY472-ps1/refs/heads/main/tfl-journeys-type.csv&quot;) </code></pre>
+cleaned_data &lt;- clean_tibble(&quot;https://raw.githubusercontent.com/Ann-Sc/My-Repo-MY472-ps1/refs/heads/main/tfl-journeys-type.csv&quot;) </code></pre>
 <pre><code>## Rows: 137 Columns: 12
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
@@ -424,6 +424,7 @@ clean_tibble(&quot;https://raw.githubusercontent.com/Ann-Sc/My-Repo-MY472-ps1/re
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre><code>## [1] 137
 ## [1] 71</code></pre>
+<pre class="r"><code>cleaned_data</code></pre>
 <pre><code>## # A tibble: 71 × 12
 ##    Period and Financial…¹ `Reporting Period` `Days in period` `Period beginning`
 ##    &lt;chr&gt;                               &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;             
@@ -443,6 +444,41 @@ clean_tibble(&quot;https://raw.githubusercontent.com/Ann-Sc/My-Repo-MY472-ps1/re
 ## #   `Underground journeys (m)` &lt;dbl&gt;, `DLR Journeys (m)` &lt;dbl&gt;,
 ## #   `Tram Journeys (m)` &lt;dbl&gt;, `Overground Journeys (m)` &lt;dbl&gt;,
 ## #   `Emirates Airline Journeys (m)` &lt;dbl&gt;, `TfL Rail Journeys (m)` &lt;dbl&gt;</code></pre>
+</div>
+<div id="a-second-function" class="section level2">
+<h2>A Second Function</h2>
+<p>The function below creates a new column that displays the sum of each
+rows journeys.</p>
+<pre class="r"><code>#defines and creates a function with one argument being data that defines and creates a new column that sums just rows 7-12 which contain the journey amounts
+
+adding_sum &lt;- function(data_new) {  
+  added_column &lt;- data_new %&gt;%  
+    mutate(journey_sum = rowSums(select(.,7:12)))
+  return(added_column)
+}
+
+#using the new function on the cleaned data from the first function
+adding_sum(cleaned_data)</code></pre>
+<pre><code>## # A tibble: 71 × 13
+##    Period and Financial…¹ `Reporting Period` `Days in period` `Period beginning`
+##    &lt;chr&gt;                               &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;             
+##  1 01_14/15                                1               26 01-Apr-14         
+##  2 03_15/16                                3               28 31-May-15         
+##  3 04_15/16                                4               28 28-Jun-15         
+##  4 05_15/16                                5               28 26-Jul-15         
+##  5 06_15/16                                6               28 23-Aug-15         
+##  6 07_15/16                                7               28 20-Sep-15         
+##  7 08_15/16                                8               28 18-Oct-15         
+##  8 09_15/16                                9               28 15-Nov-15         
+##  9 10_15/16                               10               28 13-Dec-15         
+## 10 11_15/16                               11               28 10-Jan-16         
+## # ℹ 61 more rows
+## # ℹ abbreviated name: ¹​`Period and Financial year`
+## # ℹ 9 more variables: `Period ending` &lt;chr&gt;, `Bus journeys (m)` &lt;dbl&gt;,
+## #   `Underground journeys (m)` &lt;dbl&gt;, `DLR Journeys (m)` &lt;dbl&gt;,
+## #   `Tram Journeys (m)` &lt;dbl&gt;, `Overground Journeys (m)` &lt;dbl&gt;,
+## #   `Emirates Airline Journeys (m)` &lt;dbl&gt;, `TfL Rail Journeys (m)` &lt;dbl&gt;,
+## #   journey_sum &lt;dbl&gt;</code></pre>
 </div>
 </div>
 
