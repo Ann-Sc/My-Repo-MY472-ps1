@@ -1,0 +1,56 @@
+---
+title: "Rmarkdown-defines_a_function"
+author: "LSE Candidate Number: 202146821"
+date: "2024-10-23"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Objective
+
+This RMarkdown file defines a function with a single argument `data`, that takes a dataset and performs an input transformation on it. It then uses the new function on a dataset.
+
+## Loading Necessary Packages
+
+In order for the function to work, you will need the tidyverse package to be loaded. This code chunk below is installing and loading tidyverse.
+
+```{r}
+#installing the package before loading. 
+#This is only necessary if not already installed. 
+#If not installed already then remove the # on the line below
+
+#install.packages(tidyverse) 
+
+#loading the tidyverse package
+library(tidyverse)
+```
+
+## Creating a Function
+
+The function below reads in a loaded deliminated dataset as a tibble and removes all rows that contain missing values. Additionally, it prints how many rows there were before missing values were removed and how many remain after the removal. Finally, it returns the transformed data.
+
+```{r}
+#reading in and defining a function with one argument meant to be a dataset
+
+clean_tibble <- function(data) {  #sets up a function with one argument being data
+  tibble_data <- read_csv(data) #reads a deliminated file into a tibble and defines it
+  print(nrow(tibble_data)) #prints the count of rows in the loaded dataset
+  cleaned_data <- drop_na(tibble_data) #removes rows that contain missing values and defines it
+  print(nrow(cleaned_data)) #prints the count of rows after the missing values were dropped
+  return(cleaned_data)  #returns the dataset as a tibble with all missing values rows dropped
+}
+```
+
+## Using the clean_tibble() Function
+
+Below we are using the newly created clean_tibble() function on a dataset provided in the public repository. The dataset we are using is located in my public repository [here](https://github.com/Ann-Sc/My-Repo-MY472-ps1). It was downloaded from London DataStore and contains TfL data on Public Transport Journeys by Type of Transport. You can find the webpage where it was originally downloaded from [here](https://data.london.gov.uk/dataset/public-transport-journeys-type-transport).
+
+```{r}
+#pasting URL to the TfL raw dataset in my github repo into the clean_tibble() function where the argument "data" was assigned
+
+clean_tibble("https://raw.githubusercontent.com/Ann-Sc/My-Repo-MY472-ps1/refs/heads/main/tfl-journeys-type.csv") 
+
+```
