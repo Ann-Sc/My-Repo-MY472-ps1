@@ -63,8 +63,8 @@ The function below creates a new column that displays the sum of each rows journ
 ```{r}
 #defines and creates a function with one argument being data that defines and creates a new column that sums just rows 7-12 which contain the journey amounts
 
-adding_sum <- function(data) {  
-  added_column <- data %>%  
+adding_sum <- function(data_new) {  
+  added_column <- data_new %>%  
     mutate(journey_sum = rowSums(select(.,7:12)))
   return(added_column)
 }
